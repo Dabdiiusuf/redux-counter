@@ -23,44 +23,41 @@ function downvoteYoutube() {
   };
 }
 
-function youtubeVideoReducer(youtubeVideo = {}, action) {
+const initialState = {
+  title: "",
+  viewCount: 0,
+  votes: {
+    up: 0,
+    down: 0,
+  },
+};
+
+function youtubeVideoReducer(youtubeVideo = initialState, action) {
   switch (action.type) {
     case "YOUTUBE_TITLE":
       return {
-        ...state,
-        youtubeVideo: {
-          ...state.youtubeVideo,
-          title: action.payload,
-        },
+        ...youtubeVideo,
+        title: action.payload,
       };
     case "VIEW_COUNT":
       return {
-        ...state,
-        youtubeVideo: {
-          ...state.youtubeVideo,
-          viewCount: state.youtubeVideo.viewCount + 1,
-        },
+        ...youtubeVideo,
+        viewCount: youtubeVideo.viewCount + 1,
       };
     case "YOUTUBE_VOTE":
       return {
-        ...state,
-        youtubeVideo: {
-          ...state.youtubeVideo,
-          votes: {
-            ...state.youtubeVideo.votes,
-            up: state.youtubeVideo.votes.up + 1,
-          },
+        ...youtubeVideo,
+        votes: {
+          ...youtubeVideo.votes,
+          up: youtubeVideo.votes.up + 1,
         },
       };
     case "YOUTUBE_DOWN":
       return {
-        ...state,
-        youtubeVideo: {
-          ...state.youtubeVideo,
-          votes: {
-            ...state.youtubeVideo.votes,
-            down: state.youtubeVideo.votes.down + 1,
-          },
+        ...youtubeVideo,
+        votes: {
+          ...youtubeVideo.votes,
+          down: youtubeVideo.votes.down + 1,
         },
       };
     default:
